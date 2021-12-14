@@ -1,19 +1,19 @@
 {
   "inputs" :  {
-    "e572las" : "D:\\Documents\\MISSIONS\\automatisation_traitement_nuages_points\\outils\\e572las.exe",
-    "e57" : "D:\\Documents\\MISSIONS\\automatisation_traitement_nuages_points\\input\\703000_7059000.e57"
+    "e572las" : "Chemin vers l'exécutable e572las.",
+    "e57" : "Chemin vers le fichier e57."
   },
   "outputs" : {
-    "lazFile" : "D:\\Documents\\MISSIONS\\automatisation_traitement_nuages_points\\input\\e57Converted.laz",
-    "lazFiltered" : "D:\\Documents\\MISSIONS\\automatisation_traitement_nuages_points\\output\\outputFiltered.laz"
+    "lazFile" : "Chemin où sera rangé le fichier e57 converti en laz.",
+    "lazFiltered" : "Chemin où sera rangé le fichier filtré."
   },
   "noiseFilter" : {
-    "kernelRadius" : 0.8,
+    "kernelRadius" : 0,
     "nSigma" : 0,
     "removeIsolatedPoints" : "True",
     "useKnn" : "False",
     "knn" : 0,
-    "useAbsoluteError" : "True",
-    "absoluteError" : 1
+    "useAbsoluteError" : "False",
+    "absoluteError" : 0
   }
 }
