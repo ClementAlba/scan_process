@@ -1,12 +1,8 @@
 from grass.pygrass.modules import Module
 from grass.pygrass.gis.region import Region
 from grass.script import core as grass
-
-from grass.pygrass import raster
 from multiprocessing import Process, Lock
 import json
-import time
-import queue
 
 with open("D:\\Documents\\GitHub\\scan_process\\aerien\\config_dev.json") as jsonFile:
     config = json.load(jsonFile)
