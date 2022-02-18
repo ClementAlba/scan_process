@@ -14,10 +14,15 @@
       "class_filter": "Classe des points que l'on veut importer (sans guillemets)"
     }
   },
+  "parallel": {
+    "regions": "Nombre de régions souhaitées pour le découpage (sans guillemets)",
+    "nbProcesses": "Nombre de processus souhaités pour la parallélisation (sans guillemets)"
+  },
   "interpolation": {
     "g.region": {
       "vector": "location_name@mapset_name",
-      "res": "Resolution. (sans guillemets)"
+      "res3": "Resolution. (sans guillemets)",
+      "grow": "Buffer. (sans guillemets)"
     },
     "v.surf.rst": {
       "input": "location_name@mapset_name",
@@ -26,11 +31,6 @@
       "dmin": "Distance minimale entre les points (sans guillemets)",
       "segmax": "Nombre maximal de points dans un segment (sans guillemets)",
       "npmin": "Nombre minimal de points pour l'approximation dans un segment (> segmax, sans guillemets)"
-    },
-    "r.out.gdal": {
-      "input": "elevation@mapset_name",
-      "output": "Chemin vers le fichier de sortie.",
-      "format": "Format du fichier."
     }
   }
 }
