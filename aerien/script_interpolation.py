@@ -133,7 +133,8 @@ if __name__ == "__main__":
 
         #La variable decalage represente le decalage pour obtenir un decoupage de regions qui ont la meme taille
         for r in range(regions):
-            if len(processes) < nbProcesses:
+            if len(processes) < nbProcesses:
+
                 p = Process(target=interpolation, args=(regions, decalage, r, region, lock))
                 processes.append(p)
                 p.start()
