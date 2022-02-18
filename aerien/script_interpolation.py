@@ -75,9 +75,6 @@ def interpolation(regions, i, nRegion, r, lock):
     yDist = r.north - r.south
 
     regions = config.get("parallel").get("regions")
-
-    #Lock pour ne pas que plusieurs process calculent une meme region
-    lock.acquire()
 
     name = "region_" + str(nRegion)
     elevation = name + "_elevation"
@@ -113,8 +110,6 @@ def interpolation(regions, i, nRegion, r, lock):
             overwrite = True
         )
 
-    lock.release()
-
     #Interpolation
     Module(
         "v.surf.rst",
@@ -126,12 +121,11 @@ def interpolation(regions, i, nRegion, r, lock):
         overwrite = True
     )
 
-
-if __name__ == "__main__":
-    valeursOk = check_values()
-    #Si les valeurs sont coherentes on execute le code sinon on ne fait rien
+if __name__ == "__main__":
+    valeursOk = check_values()
+    #Si les valeurs sont coherentes on execute le code sinon on ne fait rien
     if(valeursOk):
-        #create_new_location()
+        create_new_location()
         import_file()
 
         regions = config.get("parallel").get("regions")
@@ -140,12 +134,13 @@ if __name__ == "__main__":
         decalage = 0
         region = Region()
         lock = Lock()
-
+
         #La variable decalage represente le decalage pour obtenir un decoupage de regions qui ont la meme taille
         for r in range(regions):
-            p = Process(target=interpolation, args=(regions, decalage, r, region, lock))
-            processes.append(p)
-            p.start()
+            if len(processes) < nbProcesses:
+                p = Process(target=interpolation, args=(regions, decalage, r, region, lock))
+                processes.append(p)
+                p.start()
 
             if decalage < (regions / 2) - 1:
                 decalage += 1
