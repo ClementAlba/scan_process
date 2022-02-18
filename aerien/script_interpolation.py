@@ -4,7 +4,7 @@ from grass.script import core as grass
 from multiprocessing import Process, Lock
 import json
 
-with open("D:\\Documents\\GitHub\\scan_process\\aerien\\config_dev.json") as jsonFile:
+with open(input("Entrez le chemin vers votre fichier de config : ")) as jsonFile:
     config = json.load(jsonFile)
     jsonFile.close()
 
