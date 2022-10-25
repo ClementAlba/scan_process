@@ -42,18 +42,33 @@
 - Supprimer les pipelines et scripts non-utilisés
 - Remplacer les chemins absolus en dur par un fichier de configuration json ou par des chemins relatifs quand c'est possible
 - Automatiser le process en remplaçant les fichiers .bat par des scripts python
+- 
+### Enchaînement du process
 
-### Analyse
+Dans un premier temps tous les fichiers e57 sont transformés en fichiers las, puis sur ces fichiers las la dimension OriginId est ajoutée pour chaque point du nuage. On rassemble ensuite tous ces fichiers pour n'en former qu'un.
 
-Certaines pipelines sont vides car elles sont appliquées sur une liste de fichiers : 
+Ensuite, le nuage est découpé en clusters de points et chaque point de chaque cluster est analysé pour déterminer son HAG. Grâce à cela on peut déterminer quels points font parti du sol et lesquels font parti du sursol. Les point ayant la classe 2 font parti du sol et les points ayant la classe 1 font parti du sursol.
 
-- open_e57_write_las.json
-- open_las_create_OriginID_dimension.json
+On répète exactement le même procédé pour les points du sursol. Parmis ces points, on attribue la classe 65 aux points qui ne sont pas reliés au sol.
 
-Pour ces pipelines, on pourra utiliser pdal-parallelizer avec -it à dir.
+Ensuite, on cherche à determiner les objets mobiles et les objets fixes. Si un objet est en mouvement (mobile), ses points proviendront de plusieurs sources. On applique donc un filtre python qui va permettre de dresser un tableau contenant : le cluster, sa première source, le nombre de source du cluster.
+Si le nombre de source est à 1, cela veut dire que l'objet est fixe et on lui attribue donc la classe 66.
 
-La pipeline merge_in_one_las.json ne nécessite pas l'utilisation de pdal-parallelizer, on pourra utiliser directement l'outil pdal-python.
+On calcule l'orientation moyenne et la variation moyenne de surface du cluster et on les ajoute en tant que dimension du nuage. 
 
-Le reste des pipelines peuvent être exécutées avec pdal-parallelizer avec -it à single.
+Enfin, pour classifier le sursol, on établi un score pour chacun des clusters, ce score déterminera si le cluster appartient à :
+- de la végétation basse (classe 3)
+- de la végétation intermédiaire (classe 4)
+- de la végétation haute (classe 5)
+- du bati (classe 6)
 
-Attention à la mémoire, entre chaque étape penser à effacer la mémoire non gérée car on peut enchaîner plusieurs gros calculs.
+### Solution
+
+Pour la transformation des fichiers e57 en las et aussi pour l'ajout de la dimension OriginId, l'utilisation de pdal_parallelizer me emble nécessaire : on parcourt tous les points du nuage donc le traitement bien que très simple peut en revanche être très long.
+Pour le rassemblement de tous ces fichiers par contre, j'opterais pour l'utilisation de pdal en ligne de commande, ce qui simplifierai le code et qui nous éviterais un fichier json supplémentaire.
+
+Toutes les étapes d'après étant reliées à des filtres python, que l'on applique sur un seul nuage, il serait intéressant d'utiliser ici pdal_parallelizer avec -it à single pour paralléliser ces traitements.
+Il faut cependant garder en tête qu'il est nécessaire d'ajouter une étape qui merge toutes les tuiles produites pour repartir à chaque fois d'un seul fichier.
+
+Et pour toutes les commandes liées à cloudcompare, l'idéal serait d'utiliser la librairie python qui permettrait d'uniformiser toute la chaîne en ayant que des fichiers python.
+Attention à l'état de la mémoire à la fin de chacune des étapes : risque de débordement
