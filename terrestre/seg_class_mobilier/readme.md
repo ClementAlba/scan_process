@@ -75,6 +75,4 @@ Attention à l'état de la mémoire à la fin de chacune des étapes : risque de
 
 ### Graphe du projet
 
-![graph](https://user-images.githubusercontent.com/93247842/197959300-d93526c1-e518-4ce0-9fc4-1ecb9e7dd3f5.svg)
-
-
+![graph](https://user-images.githubusercontent.com/93247842/197959895-6afd429c-9287-4d94-a28e-695c2f5efa4d.svg)
