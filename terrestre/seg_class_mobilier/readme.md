@@ -72,3 +72,9 @@ Il faut cependant garder en tête qu'il est nécessaire d'ajouter une étape qui
 
 Et pour toutes les commandes liées à cloudcompare, l'idéal serait d'utiliser la librairie python qui permettrait d'uniformiser toute la chaîne en ayant que des fichiers python.
 Attention à l'état de la mémoire à la fin de chacune des étapes : risque de débordement
+
+### Graphe du projet
+
+![graph](https://user-images.githubusercontent.com/93247842/197959300-d93526c1-e518-4ce0-9fc4-1ecb9e7dd3f5.svg)
+
+
