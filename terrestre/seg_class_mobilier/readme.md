@@ -76,3 +76,8 @@ Attention à l'état de la mémoire à la fin de chacune des étapes : risque de
 ### Graphe du projet
 
 ![graph](https://user-images.githubusercontent.com/93247842/197959895-6afd429c-9287-4d94-a28e-695c2f5efa4d.svg)
+
+### Graphe de la solution
+
+![graph_sol](https://user-images.githubusercontent.com/93247842/197966360-776b93ea-82ca-4ab2-a434-e6d22f37220c.svg)
+
